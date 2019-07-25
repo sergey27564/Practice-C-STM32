@@ -68,7 +68,9 @@
 #define APP_RX_DATA_SIZE  2048
 #define APP_TX_DATA_SIZE  2048
 /* USER CODE END PRIVATE_DEFINES */
-
+uint8_t rec_data[100];
+uint32_t rec_total = 0;
+uint32_t rec_data_size;
 /**
   * @}
   */
@@ -264,14 +266,8 @@ static int8_t CDC_Receive_FS(uint8_t* Buf, uint32_t *Len)
 {
   /* USER CODE BEGIN 6 */
   USBD_CDC_SetRxBuffer(&hUsbDeviceFS, &Buf[0]);
-  if (*Buf == 49)
-  {
-    HAL_GPIO_TogglePin(ARD_D0_GPIO_Port, ARD_D0_Pin);
-  }
-  if (*Buf == 50)
-  {
-    HAL_GPIO_TogglePin(ARD_D4_GPIO_Port, ARD_D4_Pin);
-  }
+  rec_data_size = *Len;
+  memcpy(rec_data, Buf, rec_data_size);
   USBD_CDC_ReceivePacket(&hUsbDeviceFS);
   return (USBD_OK);
   /* USER CODE END 6 */
@@ -292,7 +288,7 @@ uint8_t CDC_Transmit_FS(uint8_t* Buf, uint16_t Len)
 {
   uint8_t result = USBD_OK;
   /* USER CODE BEGIN 7 */
-/*  USBD_CDC_HandleTypeDef *hcdc = (USBD_CDC_HandleTypeDef*)hUsbDeviceFS.pClassData;
+  /*USBD_CDC_HandleTypeDef *hcdc = (USBD_CDC_HandleTypeDef*)hUsbDeviceFS.pClassData;
   if (hcdc->TxState != 0){
     return USBD_BUSY;
   }*/

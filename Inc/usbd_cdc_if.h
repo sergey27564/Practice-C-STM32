@@ -91,7 +91,9 @@
 extern USBD_CDC_ItfTypeDef USBD_Interface_fops_FS;
 
 /* USER CODE BEGIN EXPORTED_VARIABLES */
-
+extern uint8_t rec_data[];
+extern uint32_t rec_total;
+extern uint32_t rec_data_size;
 /* USER CODE END EXPORTED_VARIABLES */
 
 /**
@@ -106,7 +108,6 @@ extern USBD_CDC_ItfTypeDef USBD_Interface_fops_FS;
 uint8_t CDC_Transmit_FS(uint8_t* Buf, uint16_t Len);
 
 /* USER CODE BEGIN EXPORTED_FUNCTIONS */
-
 /* USER CODE END EXPORTED_FUNCTIONS */
 
 /**
